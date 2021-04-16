@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<style>
+.img-thumbnail {
+	height: 100px;
+}
+</style>
+</head>
+
+<body>
+
+	<div class="container-fluid">
+		<!-- Image and text -->
+		<nav class="navbar navbar-light bg-light">
+			<div class="py-3 bg-light">
+				<div class="media d-flex align-items-center">
+					<div class="media-body">
+						<h4 class="m-0">LOYALTY</h4>
+						<p class="font-weight-light text-muted mb-0">Basic Web</p>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="row w-100 bg-white">
+			<!-- Vertical navbar -->
+			<div class="col-md-2">
+				<div class="bg-white" id="sidebar">
+
+					<p
+						class="text-gray font-weight-bold text-uppercase px-3 pt-4 small pb-4 mb-0">Management
+						Tools</p>
+
+					<ul class="nav flex-column bg-white mb-0">
+						<li class="nav-item"><a href="/"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Customer
+								Management
+						</a></li>
+
+						<li class="nav-item"><a th:href="@{/gift/}"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Gift Management
+						</a></li>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 2
+						</a></li>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 3
+						</a></li>
+
+						<p
+							class="text-gray font-weight-bold text-uppercase px-3 pt-4 small pb-4 mb-0">Parent
+							Group 2</p>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 1
+						</a></li>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 2
+						</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<!-- End vertical navbar -->
+
+			<!-- start table -->
+			<div class="col-md-10">
+
+				<!-- start breadcrumb -->
+				<div class="row">
+					<nav aria-label="breadcrumb" class="w-100"
+						style="background-color: white;">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page"><a
+								href="#">Gift Management</a></li>
+						</ol>
+					</nav>
+				</div>
+				<!-- end breadcrumb -->
+
+				<!-- start card for table -->
+				<div class="row">
+					<div class="col-12 card px-0">
+						<div class="card-header">
+							<div class="row">
+								<div class="col-3">
+									<h4>Gift management</h4>
+								</div>
+								<div class="col-9 d-flex justify-content-end">
+									<button class="btn btn-primary" data-toggle="modal"
+										data-target="#staticBackdrop">Nhập mã trúng trưởng</button>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive" style="height: 500px">
+							
+								<!-- start table -->
+								<table class="table table-triped text-center border">
+									<thead class="thead-dark">
+										<tr>
+											<th>#</th>
+											<th>Code</th>
+											<th>Người trúng thưởng</th>
+											<th>SĐT</th>
+											<th>Ngày trúng</th>
+											<th>Hành Động</th>
+										</tr>
+									</thead>
+									
+								
+									<tbody>
+										<tr th:each="g, i : ${gifts}">
+											<td class="align-middle">[[${i.index + 1}]]</td>
+											<td class="align-middle w-25">[[${g.giftCode}]]</td>
+											<td class="align-middle w-25">
+												[[${g.person.firstName + " " + g.person.lastName}]]
+											</td>
+											<td class="align-middle w-25">
+												[[${g.person.phone}]]
+											</td>
+											<td class="align-middle w-25">
+												[[${g.createDate}]]
+											</td>
+											<td class="align-middle w-25">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<!-- end table -->
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end card for table -->
+			</div>
+		</div>
+
+		<div class="modal fade" id="staticBackdrop" data-backdrop="static"
+			data-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/gift/}" method="POST" id="codeForm" name="codeForm">
+							<div class="form-group row">
+								<label for="code" class="col-sm-2 col-form-label"> Gift
+									Code </label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control-plaintext" name="code"
+										id="code" placeholder="Gift Code" value="">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary" form="codeForm">Gửi</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+		integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+		crossorigin="anonymous"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	
+	<!-- Custom java script -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		    let gift = [[${savedGift}]]
+		/*]]>*/
+		
+		//Auto show info person when gift not like null
+		$(document).ready(() => {
+			if(gift !== null){
+				Swal.fire(
+						  'Xin chúc mừng?',
+						  `Tên: ${gift.person.firstName} ${gift.person.lastName} <br>
+						  SĐT: ${gift.person.phone} <br>
+						  Code: ${gift.giftCode.toLocaleUpperCase()}`,
+						  'question'
+						)
+			}
+		})
+		
+	</script>
+	
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<style>
+.img-thumbnail {
+	height: 100px;
+}
+</style>
+</head>
+
+<body>
+
+	<div class="container-fluid">
+		<!-- Image and text -->
+		<nav class="navbar navbar-light bg-light">
+			<div class="py-3 bg-light">
+				<div class="media d-flex align-items-center">
+					<div class="media-body">
+						<h4 class="m-0">LOYALTY</h4>
+						<p class="font-weight-light text-muted mb-0">Basic Web</p>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="row w-100 bg-white">
+			<!-- Vertical navbar -->
+			<div class="col-md-2">
+				<div class="bg-white" id="sidebar">
+
+					<p
+						class="text-gray font-weight-bold text-uppercase px-3 pt-4 small pb-4 mb-0">Management
+						Tools</p>
+
+					<ul class="nav flex-column bg-white mb-0">
+						<li class="nav-item"><a href="/"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Customer
+								Management
+						</a></li>
+
+						<li class="nav-item"><a th:href="@{/gift/}"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Gift Management
+						</a></li>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 2
+						</a></li>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 3
+						</a></li>
+
+						<p
+							class="text-gray font-weight-bold text-uppercase px-3 pt-4 small pb-4 mb-0">
+							Parent Group 2</p>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 1
+						</a></li>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link text-dark font-italic bg-light"> <i
+								class="fa fa-th-large mr-3 text-primary fa-fw"></i> Menu Item 2
+						</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<!-- End vertical navbar -->
+
+			<!-- start table -->
+			<div class="col-md-10">
+
+				<!-- start breadcrumb -->
+				<div class="row">
+					<nav aria-label="breadcrumb" class="w-100"
+						style="background-color: white;">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+							<li class="breadcrumb-item"><a th:href="@{/}">Customer
+									Management</a></li>
+							<li class="breadcrumb-item active" aria-current="page"><a
+								href="#">Add Customer</a></li>
+						</ol>
+					</nav>
+				</div>
+				<!-- end breadcrumb -->
+
+				<div class="row">
+					<div class="col-12">
+						<div class="card-header">
+							<div class="row">
+								<div class="col-12">
+									<h4>Add customer</h4>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-3 align-middle border">
+								
+									<img th:src="@{/resources/static/images/no-picture.jpg}" id="preload"
+										class="img-fluid rounded mx-auto d-block" alt="">
+										
+								</div>
+
+								<div class="col-9">
+
+									<form class="w-100 mx-auto border p-3" th:action="@{/save}"
+										method="POST" th:object="${person}"
+										enctype="multipart/form-data">
+
+										<div class="form-row">
+											<div class="form-group col">
+												<div class="input-group">
+													<label for="firstname">First name</label>
+													<div class="input-group mb-3">
+														<input type="text" class="form-control"
+															th:field="*{firstName}" id="firstname"
+															aria-describedby="basic-addon3">
+													</div>
+												</div>
+											</div>
+											<div class="form-group col">
+												<div class="input-group">
+													<label for="lastname">Last name</label>
+													<div class="input-group mb-3">
+														<input type="text" class="form-control"
+															th:field="*{lastName}" id="lastname"
+															aria-describedby="basic-addon3">
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-row">
+											<div class="form-group col">
+												<div class="input-group">
+													<label for="phone">Phone</label>
+													<div class="input-group mb-3">
+														<input type="text" class="form-control"
+															th:field="*{phone}" id="phone"
+															aria-describedby="basic-addon3">
+													</div>
+													<span th:if="${#fields.hasErrors('phone')}"
+														th:errors="*{phone}" class="text-danger help-block"></span>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-row">
+											<div class="form-group col">
+												<label for="">Image</label>
+												<div class="input-group">
+													<div class="custom-file">
+														<input type="file" class="custom-file-input"
+															id="fileUpload" name="image"
+															aria-describedby="inputGroupFile"
+															onchange="readURL(this);"> <label
+															class="custom-file-label" for="image"></label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<button class="btn btn-block btn-primary" type="submit">SUBMIT</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+		integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$('#fileUpload')
+				.on(
+						'change',
+						function() {
+							//get the file name
+							var fullPath = $(this).val();
+							if (fullPath) {
+								var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath
+										.lastIndexOf('\\')
+										: fullPath.lastIndexOf('/'));
+								let filename = fullPath.substring(startIndex);
+								if (filename.indexOf('\\') === 0
+										|| filename.indexOf('/') === 0) {
+									filename = filename.substring(1);
+								}
+								$(this).next('.custom-file-label').html(
+										filename);
+							}
+						})
+
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#preload').attr('src', e.target.result);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+</body>
+
+</html>
